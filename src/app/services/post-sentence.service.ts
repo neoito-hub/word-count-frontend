@@ -22,7 +22,7 @@ export class PostSentenceService {
       )
       .pipe(
         map(res => {
-          console.log(res);
+          return res;
         }),
         catchError(res => {
           return throwError("Something bad happened; please try again later.");
