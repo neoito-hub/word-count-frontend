@@ -1,8 +1,8 @@
 <div class="app-container">
   <h1>Word Count App</h1>
   <div class="word-table-container">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" novalidate>
-      <input name="text" ngModel />
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, text)" novalidate>
+      <input name="text" ngModel #text />
       <button>Submit</button>
     </form>
     <div class="words-list">

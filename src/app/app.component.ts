@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ElementRef } from "@angular/core";
 import { PostSentenceService, GetWordsService, UsersService } from "./services";
 import { LOCALSTORAGE_KEYS } from "./config";
 
@@ -15,7 +15,9 @@ export class AppComponent implements OnInit {
     private userService: UsersService
   ) {}
   ngOnInit() {
-    if (!localStorage.getItem(LOCALSTORAGE_KEYS.userId)) {
+    if (localStorage.getItem(LOCALSTORAGE_KEYS.userId)) {
+      this.getwords();
+    } else {
       this.userService.create().subscribe();
     }
   }
@@ -29,10 +31,10 @@ export class AppComponent implements OnInit {
       );
     });
   }
-  onSubmit(v) {
-    console.log(v);
+  onSubmit(v, f) {
     this.postService.post(v.text).subscribe(r => {
       console.log(r);
+      f.value = "";
       this.getwords();
     });
   }
