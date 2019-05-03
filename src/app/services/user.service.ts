@@ -1,10 +1,10 @@
-import { LOCALSTORAGE_KEYS } from "./../config/index";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { map, catchError } from "rxjs/operators";
 
 import { USER_URL } from "../config";
+import { LOCALSTORAGE_KEYS } from "./../config/index";
 
 @Injectable()
 export class UsersService {
@@ -12,7 +12,6 @@ export class UsersService {
   create(): Observable<any> {
     return this.http.post(USER_URL, {}).pipe(
       map((res: { _id: string }) => {
-        console.log(res);
         localStorage.setItem(LOCALSTORAGE_KEYS.userId, res._id);
         return res;
       }),

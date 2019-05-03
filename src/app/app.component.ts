@@ -8,13 +8,17 @@ import { LOCALSTORAGE_KEYS } from "./config";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  wordsList = [{ word: "this", count: 2 }];
+  wordsList: Array<{ word: string; count: string }> = [];
+  text: string;
+
   constructor(
     private postService: PostSentenceService,
     private getService: GetWordsService,
     private userService: UsersService
   ) {}
   ngOnInit() {
+    // To keep the state of the user, we generate a uid in backend
+    // if uid the get all the words entered by user and show
     if (localStorage.getItem(LOCALSTORAGE_KEYS.userId)) {
       this.getwords();
     } else {
@@ -23,6 +27,8 @@ export class AppComponent implements OnInit {
   }
   getwords() {
     this.getService.get().subscribe(r => {
+      // reset the old list
+      this.wordsList.length = 0;
       Object.keys(r).forEach(k =>
         this.wordsList.push({
           word: k,
@@ -31,11 +37,12 @@ export class AppComponent implements OnInit {
       );
     });
   }
-  onSubmit(v, f) {
-    this.postService.post(v.text).subscribe(r => {
-      console.log(r);
-      f.value = "";
-      this.getwords();
-    });
+  onSubmit() {
+    if (this.text) {
+      this.postService.post(this.text).subscribe(r => {
+        this.text = "";
+        this.getwords();
+      });
+    }
   }
 }

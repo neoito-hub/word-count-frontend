@@ -4,11 +4,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, catchError } from "rxjs/operators";
 
 import { POST_SENTENCE_URL, LOCALSTORAGE_KEYS } from "../config";
+import { ResultModel } from "./../models/user.models";
 
 @Injectable()
 export class PostSentenceService {
   constructor(private http: HttpClient) {}
-  post(text): Observable<any> {
+  post(text: string): Observable<any> {
     const headers = new HttpHeaders({
       user_id: localStorage.getItem(LOCALSTORAGE_KEYS.userId)
     });
@@ -21,7 +22,7 @@ export class PostSentenceService {
         { headers }
       )
       .pipe(
-        map(res => {
+        map((res: ResultModel) => {
           return res;
         }),
         catchError(res => {

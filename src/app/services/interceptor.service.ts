@@ -22,9 +22,8 @@ export class Interceptor implements HttpInterceptor {
       tap(
         success => {},
         (err: any) => {
+          // handle error to unauthorised and generate userid
           if (err instanceof HttpErrorResponse) {
-            console.log(err);
-
             if (err.status === 401 || err.status === 403) {
               this.userService.create().subscribe(r => {
                 return next.handle(request);
