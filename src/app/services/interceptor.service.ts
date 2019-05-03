@@ -28,7 +28,10 @@ export class Interceptor implements HttpInterceptor {
               this.userService.create().subscribe(r => {
                 return next.handle(request);
               });
-            } else if (err.status === 404) {
+            } else if (err.status === 500) {
+              // may be problem of userId
+              localStorage.clear();
+              location.reload();
             }
           }
         }
