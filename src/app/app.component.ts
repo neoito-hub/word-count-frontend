@@ -25,23 +25,27 @@ export class AppComponent implements OnInit {
       this.userService.create().subscribe();
     }
   }
+  parseWordsList(resultObject) {
+    // reset the old list
+
+    this.wordsList.length = 0;
+    Object.keys(resultObject).forEach(k =>
+      this.wordsList.push({
+        word: k,
+        count: resultObject[k]
+      })
+    );
+  }
   getwords() {
     this.getService.get().subscribe(r => {
-      // reset the old list
-      this.wordsList.length = 0;
-      Object.keys(r).forEach(k =>
-        this.wordsList.push({
-          word: k,
-          count: r[k]
-        })
-      );
+      this.parseWordsList(r);
     });
   }
   onSubmit() {
     if (this.text) {
       this.postService.post(this.text).subscribe(r => {
         this.text = "";
-        this.getwords();
+        this.parseWordsList(r);
       });
     }
   }
