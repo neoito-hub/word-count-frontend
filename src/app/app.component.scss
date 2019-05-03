@@ -1,0 +1,24 @@
+.app-container {
+  padding: 1% 10%;
+  .word-table-container {
+    // text-align: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    form {
+      padding: 12px;
+      border-bottom: 1px dashed #ddd;
+      border: none;
+      outline: none;
+      width: 85%;
+      border-bottom: 1px solid #a2b0ff;
+    }
+    .words-list {
+      display: flex;
+      flex-wrap: wrap;
+      div {
+        width: 25%;
+        font-size: 19px;
+      }
+    }
+  }
+}
